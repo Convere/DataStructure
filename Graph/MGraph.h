@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <vector>
 
 #define file 1
 #define cmd 0
@@ -10,8 +11,9 @@
 using namespace std;
 typedef int VertexType;
 typedef int EdgeType;
+
 #define MAXVEX 100
-#define INFINITY 0
+#define INFINITY 65535
 typedef struct 
 {
 	VertexType vexs[MAXVEX];

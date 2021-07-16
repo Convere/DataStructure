@@ -5,9 +5,9 @@
 #include "MGraph.h"
 #include "GraphAdjList.h"
 #include "Kruskal.h"
+#include "Dijkstra.h"
+#include "Floyd.h"
 #define MAX 100
-
-using namespace std;
 
 bool visited[MAX];
 void DFS(MGraph* G, int i)
@@ -76,7 +76,7 @@ void DFS(GraphAdjList* G, int i)
 {
 	EdgeNode* p;
 	visited[i] = true;
-	cout << G->adjList[i].data << " ";
+	cout << G->adjList[i].data << " "; 
 	p = G->adjList[i].firstedge;
 	while (p)
 	{
@@ -192,45 +192,6 @@ vector<Edge> GraphToSortedEdges(MGraph G)
 	return ret;
 }
 
-int Find(int* parent, int f)
-{
-	while (parent[f] > 0)
-	{
-		f = parent[f];
-	}
-	return f;
-}
-
-void miniSpan_Kruskal(MGraph* G)
-{
-	int n, m;
-	vector<Edge> edges;
-	int parent[MAXVEX];
-	edges = GraphToSortedEdges(*G);
-	for (int i = 0; i < G->numVertexes; i++)
-	{
-		parent[i] = 0;
-	}
-	for (int i = 0; i < G->numEdges; i++)
-	{
-		n = Find(parent, edges[i].begin);
-		m = Find(parent, edges[i].end);
-
-		if (n != m)
-		{
-			parent[n] = m;
-			cout << edges[i].begin << "," << edges[i].end << " " << edges[i].weight << endl;
-		}
-	}
-}
-void Array(int* nums,int length)
-{
-	for (int i = 0; i < length;i++)
-	{
-		*(nums++) = 3;
-	}
-	
-}
 int main()
 {
 	MGraph* mGraph = new MGraph;
@@ -242,6 +203,10 @@ int main()
 	//printMGraph(mGraph);
 	//cout << "********BFS*******" << endl;
 	//BFStraverse(mGraph);
-	Kruscal::miniSpan_Kruskal(mGraph);
+	//Kruscal::miniSpan_Kruskal(mGraph);//求最小生成树
+	vector<int> D_P(mGraph->numVertexes),D_D(mGraph->numVertexes);
+	vector<vector<int>> F_P(mGraph->numVertexes, D_P), F_D(mGraph->numVertexes, D_D);
+	shortestPath_Dijkstra(mGraph, 0, &D_P, &D_D);
+	shortestPath_Floyd(mGraph, &F_P, &F_D);
 	system("pause");
 }

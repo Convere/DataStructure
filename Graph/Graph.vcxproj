@@ -122,6 +122,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dijkstra.h" />
+    <ClInclude Include="Floyd.h" />
     <ClInclude Include="GraphAdjList.h" />
     <ClInclude Include="Kruskal.h" />
     <ClInclude Include="MGraph.h" />
